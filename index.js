@@ -1,0 +1,146 @@
+const display = document.getElementById("clock");
+
+const audio = new Audio("https://audio-previews.elements.envatousercontent.com/files/173153038/preview.mp3?response-content-disposition=attachment%3B+filename%3D%22NBUK26X-alarm.mp3%22 ");
+audio.loop = true;
+
+let alarmTime = null;
+let alarmTimeout = null;
+
+const myList = document.querySelector('#myList');
+const addAlarm = document.querySelector('.setAlarm');
+
+var alarmList = [];  // Stores all the alarms being set 
+
+function ringing(now) {
+    audio.play();
+   // alert(`Hey! it is ${now}`);
+}
+
+
+function showTime() {
+    var time = new Date();
+    var hour = time.getHours();
+    var minutes = time.getMinutes();
+    var seconds = time.getSeconds();
+    var session = "AM";
+
+    // var now = `${hour}:${minutes}:${seconds} ${session}`;
+
+    if (hour > 12) {
+        session = "PM";
+        hour = hour - 12;
+    }
+
+    if (hour == 0) {
+        session = "AM";
+        hour = 12;
+    }
+
+    if (hour < 10) {
+        hour = "0" + hour;
+    }
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+    var currentTime = `${hour}:${minutes}:${seconds} ${session}`;
+    
+    display.innerHTML = currentTime;
+
+    // check if alarmList includes the current time, "now"
+    // if yes,ringing() is called
+    if (alarmList.includes(currentTime)) {
+        ringing(currentTime);
+    }
+    setTimeout(function(){
+      showTime()
+    },1000);
+}
+showTime();
+
+//update showTime in every second
+// setInterval(showTime, 1000);
+
+//To format time
+function formatTime(time) {
+    if(time < 10 && time.length != 2){
+        return '0' + time;
+    }
+    return time;
+}
+
+//function to clear/stop the currently playing alarm
+function clearAlarm() {
+    audio.pause();
+    if(alarmTimeout){
+        clearTimeout(alarmTimeout);
+        alert('Alarm cleared')
+    }
+}
+
+// removes an alarm from the unordered list and the webpage when "Delete Alarm" is clicked
+myList.addEventListener('click', e=> {
+    console.log("removing element")
+    if(e.target.classList.contains("deleteAlarm")){
+        e.target.parentElement.remove();
+    }    
+})
+
+// removes an alarm from the array when "Delete Alarm" is clicked
+remove = (value) => {
+    let newList = alarmList.filter((time) => time != value);
+    alarmList.length = 0;                  // Clear contents
+    alarmList.push.apply(alarmList, newList);
+    
+    console.log("newList", newList);
+    console.log("alarmList", alarmList);
+}
+
+// Add new alarm to the list on webpage
+function showNewAlarm(newAlarm) {
+    const html = `
+    <li class = "time-list">
+        <span class = "time">${newAlarm}</span>
+        <button class = "deleteAlarm" id = "delete-button" onclick = "remove(this.value)" value = ${newAlarm}>Delete</button>
+    </li>
+    ` 
+    myList.innerHTML += html;
+};
+
+//adding event listener to Set Alarm button,
+//whenever the form is submitted
+addAlarm.addEventListener('submit', e=>{
+    console.log("button clicked");
+    e.preventDefault();
+
+    let newHour = formatTime(addAlarm.hours.value);
+    let newMinute = formatTime(addAlarm.minutes.value);
+    let newSecond = formatTime(addAlarm.seconds.value);
+    let newSessions = addAlarm.sessions.value;
+
+    const newAlarm = `${newHour}:${newMinute}:${newSecond} ${newSessions}`;
+
+    //add newAlarm to alarmList
+    if(isNaN(newAlarm)){
+
+        if(!alarmList.includes(newAlarm)){
+            console.log(newAlarm);
+            alarmList.push(newAlarm);
+            console.log(alarmList);
+            console.log(alarmList.length);
+
+            showNewAlarm(newAlarm);
+            addAlarm.reset();
+        }else{
+            alert(`Alarm for ${newAlarm} already set.`);
+        }
+    }else{
+        alert("Invalid Time Entered");
+    }
+
+})
