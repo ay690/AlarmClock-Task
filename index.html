@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm Clock</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section class = "container">
+        <div id = "display-time">
+            <span id = "clock"></span>
+        </div>
+    
+        <form id = "set-alarm-field">
+            <label><h3>Set Alarm</h3></label>
+            <input type = "number" placeholder = "HH" name = "hours" id = "hours" max = "12" min = "00" />
+            <input type = "number" placeholder = "MM" name = "minutes" id = "minutes" max = "59" min = "00" />
+            <input type = "number" placeholder = "SS" name = "seconds" id = "seconds" max = "59" min = "00" />
+        </form>
+
+        <div id="controls">
+            <button type = "submit" id = "submitButton" form = "set-alarm-field">Start</button>
+            <Button type = "reset" id = "stopButton" form = "set-alarm-field">Stop</Button>
+        </div>
+    </section>
+
+    <hr>
+
+    <div id = "upcomingAlarms">
+        <h3>Upcoming Alarms</h3>
+    </div>
+
+    <div>
+        <ul id = "alarmList">
+            <li class = "time-list">
+                <span class = "time">newAlarm</span>
+                <button class = "deleteAlarm" id = "delete-button" value = "newAlarm" >Delete</button>
+            </li>
+        </ul>
+    </div>
+    
+<script src = "./index.js"></script>
+</body>
+
+</html>
