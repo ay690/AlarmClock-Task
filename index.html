@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div id="main-container">
+    <div id = "main-container">
     <section class = "container">
         <div id = "display-time">
-            <span id = "clock"></span>
+            <span id = "clock">hhhhhhhhhh</span>
         </div>
     
-        <form id = "set-alarm-field">
-            <label><h3>Set Alarm</h3></label>
+        <form id = "setAlarm">
+            <label class = "alarm-heading"><h3>Set Alarm</h3></label>
             <input type = "number" placeholder = "HH" name = "hours" id = "hours" max = "12" min = "00" />
             <input type = "number" placeholder = "MM" name = "minutes" id = "minutes" max = "59" min = "00" />
             <input type = "number" placeholder = "SS" name = "seconds" id = "seconds" max = "59" min = "00" />
@@ -26,8 +26,8 @@
         </form>
 
         <div id = "controls">
-            <button type = "submit" id = "submitButton" form = "set-alarm-field">Start</button>
-            <Button type = "reset" id = "stopButton" form = "set-alarm-field">Stop</Button>
+            <button type = "submit" id = "submitButton" class = "set-alarm">Start</button>
+            <Button type = "reset" id = "stopButton" class = "clear-alarm">Stop</Button>
         </div>
     </section>
 
