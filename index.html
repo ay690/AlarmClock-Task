@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <div id="main-container">
     <section class = "container">
         <div id = "display-time">
             <span id = "clock"></span>
@@ -20,27 +21,28 @@
             <input type = "number" placeholder = "SS" name = "seconds" id = "seconds" max = "59" min = "00" />
         </form>
 
-        <div id="controls">
+        <div id = "controls">
             <button type = "submit" id = "submitButton" form = "set-alarm-field">Start</button>
             <Button type = "reset" id = "stopButton" form = "set-alarm-field">Stop</Button>
         </div>
     </section>
 
     <hr>
-
+   <section>
     <div id = "upcomingAlarms">
         <h3>Upcoming Alarms</h3>
     </div>
 
     <div>
-        <ul id = "alarmList">
+        <ul id = "myList">
             <li class = "time-list">
                 <span class = "time">newAlarm</span>
                 <button class = "deleteAlarm" id = "delete-button" value = "newAlarm" >Delete</button>
             </li>
         </ul>
     </div>
-    
+  </section>
+</div>    
 <script src = "./index.js"></script>
 </body>
 
